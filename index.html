@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fdf5e6; /* White cream background */
+        }
+
+        .calculator {
+            width: 100%;
+            max-width: 400px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .screen {
+            width: 100%;
+            background: #ffe6f2; /* Light pastel pink */
+            color: #ff0066; /* Vibrant pink */
+            font-size: 2rem;
+            text-align: right;
+            padding: 20px;
+            box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.1);
+            word-wrap: break-word;
+            min-height: 60px;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+            padding: 10px;
+            background: #ffe6f2;
+        }
+
+        button {
+            height: 60px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.1s ease, background-color 0.2s ease;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        .number {
+            background: #ff99cc; /* Pastel pink */
+            color: white;
+        }
+
+        .operator {
+            background: #ff0066; /* Vibrant pink */
+            color: white;
+        }
+
+        .clear {
+            background: #ffd1dc; /* Soft pastel pink */
+            color: #ff0066; /* Vibrant pink */
+        }
+
+        .buttons .clear:nth-child(3) {
+            grid-column: span 2;
+        }
+
+        @media (max-width: 768px) {
+            .screen {
+                font-size: 1.5rem;
+                padding: 15px;
+            }
+
+            button {
+                height: 50px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="screen" id="screen"></div>
+        <div class="buttons">
+            <button class="clear" onclick="clearScreen()">AC</button>
+            <button class="clear" onclick="deleteChar()">C</button>
+            <button class="operator" onclick="appendOperator('/')">/</button>
+            <button class="operator" onclick="appendOperator('*')">*</button>
+            <button class="number" onclick="appendNumber(7)">7</button>
+            <button class="number" onclick="appendNumber(8)">8</button>
+            <button class="number" onclick="appendNumber(9)">9</button>
+            <button class="operator" onclick="appendOperator('-')">-</button>
+            <button class="number" onclick="appendNumber(4)">4</button>
+            <button class="number" onclick="appendNumber(5)">5</button>
+            <button class="number" onclick="appendNumber(6)">6</button>
+            <button class="operator" onclick="appendOperator('+')">+</button>
+            <button class="number" onclick="appendNumber(1)">1</button>
+            <button class="number" onclick="appendNumber(2)">2</button>
+            <button class="number" onclick="appendNumber(3)">3</button>
+            <button class="operator" onclick="calculateResult()">=</button>
+            <button class="number" onclick="appendNumber(0)">0</button>
+            <button class="number" onclick="appendNumber('.')">.</button>
+        </div>
+    </div>
+
+    <script>
+        const screen = document.getElementById('screen');
+
+        function appendNumber(number) {
+            screen.textContent += number;
+        }
+
+        function appendOperator(operator) {
+            screen.textContent += ` ${operator} `;
+        }
+
+        function clearScreen() {
+            screen.textContent = '';
+        }
+
+        function deleteChar() {
+            screen.textContent = screen.textContent.slice(0, -1);
+        }
+
+        function calculateResult() {
+            try {
+                screen.textContent = eval(screen.textContent);
+            } catch {
+                screen.textContent = 'Error';
+            }
+        }
+    </script>
+</body>
+</html>
